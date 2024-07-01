@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--button-border-radius: 3px;
+	--container-border-radius: 20px;
+	--font-family: 'Poppins', Verdana, sans-serif;
+	--color-orange: rgb(225, 108, 59);
+	--color-navy-blue: rgb(0, 72, 95);
+	--color-blue-grey: rgba(229, 238, 241, 0.3);
+	--grid-width: 80px;
+}
+
+body {
+	align-items: center;
+	display: flex;
+	height: 100svh;
+	justify-content: center;
+}
+
+.container {
+	border-radius: var(--container-border-radius);
+	box-shadow: 5px 5px 20px grey;
+	display: grid;
+	font-family: var(--font-family);
+	gap: 4px;
+	grid-template-columns: repeat(4, var(--grid-width));
+}
+
+.title {
+	font-size: 24px;
+	font-weight: 600;
+	grid-column: 1 / 5;
+	padding-left: 20px;
+	padding-top: 30px;
+}
+
+.display {
+	align-items: flex-end;
+	display: flex;
+	grid-column: 1 / 5;
+	height: 120px;
+	justify-content: flex-end;
+	padding: 0 34px 10px;
+}
+
+.display__output {
+	align-items: flex-end;
+	display: flex;
+	font-size: 36px;
+	font-weight: 500;
+	justify-content: flex-end;
+	overflow: hidden;
+	text-overflow: clip;
+	white-space: nowrap;
+}
+
+.grid-item {
+	aspect-ratio: 1 / 1;
+	background-color: var(--color-blue-grey);
+	border-radius: var(--button-border-radius);
+	border: none;
+	font-size: 22px;
+}
+
+/* grid items on the left edge in a 4 column grid */
+.grid-item:nth-of-type(4n + 1) {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+
+/* grid items on the right edge in a 4 column grid */
+.grid-item:nth-of-type(4n) {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+}
+
+/* grid items on the bottom */
+.grid-item:nth-last-of-type(-n + 3) {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.grid-item:nth-of-type(17) {
+	aspect-ratio: auto;
+	border-bottom-left-radius: var(--container-border-radius);
+	grid-column: 1 / 3;
+}
+
+.grid-item.special {
+	color: var(--color-orange);
+}
+
+.grid-item.operator {
+	color: var(--color-navy-blue);
+}
+
+.grid-item.decimal {
+	font-size: 32px;
+}
+
+.grid-item.equal {
+	background-color: var(--color-orange);
+	border-bottom-right-radius: var(--container-border-radius);
+	border-top-right-radius: 0;
+	color: white;
+}
