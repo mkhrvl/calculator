@@ -70,6 +70,14 @@ body {
 	font-size: 22px;
 }
 
+.grid-item:hover {
+	filter: brightness(0.9);
+}
+
+.grid-item:active {
+	filter: brightness(0.7);
+}
+
 /* grid items on the left edge in a 4 column grid */
 .grid-item:nth-of-type(4n + 1) {
 	border-bottom-left-radius: 0;
