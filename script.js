@@ -66,18 +66,23 @@ operands.forEach((operand) => operand.addEventListener('click', (e) => {
 const operators = document.querySelectorAll('.operator');
 
 operators.forEach((operator) => operator.addEventListener('click', (e) => {
-    if (equation.leftOperand === '') {
+    if (equation.leftOperand) {
         contentToDisplay += ` ${e.target.value} `;
-        displayOutput(contentToDisplay);
+        equation.operator = e.target.value;
     }
 
-    equation.operator = e.target.value;
+    if (e.target.value === '−'&& !equation.leftOperand) {
+        contentToDisplay += '-';
+        equation.leftOperand += '-'
+    }
 
     if (equation.operator) {
         const contentParts = contentToDisplay.split(' ');
         contentToDisplay = `${contentParts[0]} ${e.target.value} `
-        displayOutput(contentToDisplay);
+        equation.operator = e.target.value;
     }
+
+    displayOutput(contentToDisplay);
 }))
 
 const equal = document.querySelector('.equal')
@@ -100,3 +105,6 @@ clear.addEventListener('click', () => {
     displayOutput(contentToDisplay);
     clearEquation();
 })
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => button.addEventListener('click', () => console.table(equation)));
