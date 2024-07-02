@@ -59,7 +59,7 @@ const equal = document.querySelector('.equal')
 equal.addEventListener('click', () => {
     const hasRightOperand = Object.hasOwn(Equation, 'rightOperand');
     if (!hasRightOperand) {
-        const rightContent = contentToDisplay.split(' ')[contentToDisplay.length - 1]
-        Equation.rightOperand = Number(rightContent);
+        const rightContent = contentToDisplay.split(' ');
+        Equation.rightOperand = Number(rightContent[rightContent.length - 1]);
     }
 })
