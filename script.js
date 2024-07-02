@@ -83,12 +83,13 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
 const equal = document.querySelector('.equal')
 
 equal.addEventListener('click', () => {
-    if (equation.rightOperand === '') {
+    if (equation.rightOperand) {
         const result = operate(equation);
         contentToDisplay = result;
         displayOutput(contentToDisplay)
 
         clearEquation();
+        equation.leftOperand = result.toString();
     }
 })
 
