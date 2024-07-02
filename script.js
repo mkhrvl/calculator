@@ -52,20 +52,25 @@ const operands = document.querySelectorAll('.operand');
 operands.forEach((operand) => operand.addEventListener('click', (e) => {
     contentToDisplay += e.target.value;
     displayOutput(contentToDisplay);
+
+    if (equation.leftOperand && equation.operator) {
+        equation.rightOperand += e.target.value;
+    } else {
+        equation.leftOperand += e.target.value;
+    }
 }))
 
 const operators = document.querySelectorAll('.operator');
 
 operators.forEach((operator) => operator.addEventListener('click', (e) => {
     if (equation.leftOperand === '') {
-        equation.leftOperand = Number(contentToDisplay);
         contentToDisplay += ` ${e.target.value} `;
         displayOutput(contentToDisplay);
     }
 
     equation.operator = e.target.value;
 
-    if (equation.operator !== '') {
+    if (equation.operator) {
         const contentParts = contentToDisplay.split(' ');
         contentToDisplay = `${contentParts[0]} ${e.target.value} `
         displayOutput(contentToDisplay);
@@ -76,9 +81,6 @@ const equal = document.querySelector('.equal')
 
 equal.addEventListener('click', () => {
     if (equation.rightOperand === '') {
-        const rightContent = contentToDisplay.split(' ');
-        equation.rightOperand = Number(rightContent[rightContent.length - 1]);
-
         const result = operate(equation);
         contentToDisplay = result;
         displayOutput(contentToDisplay)
