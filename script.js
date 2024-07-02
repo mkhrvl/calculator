@@ -48,7 +48,10 @@ operands.forEach((operand) => operand.addEventListener('click', (e) => {
 const operators = document.querySelectorAll('.operator');
 
 operators.forEach((operator) => operator.addEventListener('click', (e) => {
-    contentToDisplay += ` ${e.target.value} `;
-    displayOutput(contentToDisplay);
+    if (!rightOperand) {
+        rightOperand = Number(contentToDisplay);
+        contentToDisplay += ` ${e.target.value} `;
+        displayOutput(contentToDisplay);
+    }
 }))
 
