@@ -52,6 +52,15 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
         contentToDisplay += ` ${e.target.value} `;
         displayOutput(contentToDisplay);
     }
+
+    Equation.operator = e.target.value;
+
+    const hasOperator = Object.hasOwn(Equation, 'operator');
+    if (hasOperator) {
+        const contentParts = contentToDisplay.split(' ');
+        contentToDisplay = `${contentParts[0]} ${e.target.value} `
+        displayOutput(contentToDisplay);
+    }
 }))
 
 const equal = document.querySelector('.equal')
