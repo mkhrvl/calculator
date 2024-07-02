@@ -28,15 +28,18 @@ function clearEquation() {
 }
 
 function operate(equation) {
+    const leftOperand = Number(equation.leftOperand);
+    const rightOperand = Number(equation.rightOperand)
+
     switch (equation.operator) {
         case '+':
-            return add(equation.leftOperand, equation.rightOperand);
+            return add(leftOperand, rightOperand);
         case '−':
-            return subtract(equation.leftOperand, equation.rightOperand);
+            return subtract(leftOperand, rightOperand);
         case '×':
-            return multiply(equation.leftOperand, equation.rightOperand);
+            return multiply(leftOperand, rightOperand);
         case '÷':
-            return divide(equation.leftOperand, equation.rightOperand);
+            return divide(leftOperand, rightOperand);
     }
 }
 
