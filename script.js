@@ -14,9 +14,7 @@ function divide(a, b) {
     return a / b;
 }
 
-let leftOperand = 0;
-let operator = '';
-let rightOperand = 0;
+const Equation = {};
 
 function operate(leftOperand, rightOperand, operator) {
     switch (operator) {
@@ -48,8 +46,9 @@ operands.forEach((operand) => operand.addEventListener('click', (e) => {
 const operators = document.querySelectorAll('.operator');
 
 operators.forEach((operator) => operator.addEventListener('click', (e) => {
-    if (!leftOperand) {
-        leftOperand = Number(contentToDisplay);
+    const hasLeftOperand = Object.hasOwn(Equation, 'leftOperand');
+    if (!hasLeftOperand) {
+        Equation.leftOperand = Number(contentToDisplay);
         contentToDisplay += ` ${e.target.value} `;
         displayOutput(contentToDisplay);
     }
@@ -58,8 +57,9 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
 const equal = document.querySelector('.equal')
 
 equal.addEventListener('click', () => {
-    if (!rightOperand) {
+    const hasRightOperand = Object.hasOwn(Equation, 'rightOperand');
+    if (!hasRightOperand) {
         const rightContent = contentToDisplay.split(' ')[contentToDisplay.length - 1]
-        rightOperand = Number(rightContent);
+        Equation.rightOperand = Number(rightContent);
     }
 })
