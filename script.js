@@ -70,5 +70,9 @@ equal.addEventListener('click', () => {
     if (!hasRightOperand) {
         const rightContent = contentToDisplay.split(' ');
         equation.rightOperand = Number(rightContent[rightContent.length - 1]);
+
+        const result = operate(equation);
+        contentToDisplay = result;
+        displayOutput(contentToDisplay)
     }
 })
