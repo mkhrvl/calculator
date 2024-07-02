@@ -11,7 +11,6 @@ function multiply(a, b) {
 }
 
 const ZERO_DIVISION_ERROR_MSG = 'Boom!'
-
 function divide(a, b) {
     if (b === 0) {
         return ZERO_DIVISION_ERROR_MSG;
@@ -48,15 +47,14 @@ function operate(equation) {
     }
 }
 
-const output = document.querySelector('.display__output');
 let contentToDisplay = '';
 
+const output = document.querySelector('.display__output');
 function displayOutput(content) {
     output.textContent = content;
 }
 
 const operands = document.querySelectorAll('.operand');
-
 operands.forEach((operand) => operand.addEventListener('click', (e) => {
     contentToDisplay += e.target.value;
     displayOutput(contentToDisplay);
@@ -69,7 +67,6 @@ operands.forEach((operand) => operand.addEventListener('click', (e) => {
 }))
 
 const operators = document.querySelectorAll('.operator');
-
 operators.forEach((operator) => operator.addEventListener('click', (e) => {
     if (equation.leftOperand) {
         contentToDisplay += ` ${e.target.value} `;
@@ -91,7 +88,6 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
 }))
 
 const equal = document.querySelector('.equal')
-
 equal.addEventListener('click', () => {
     if (equation.rightOperand) {
         const result = operate(equation);
@@ -104,7 +100,6 @@ equal.addEventListener('click', () => {
 })
 
 const clear = document.querySelector('#btn-clear');
-
 clear.addEventListener('click', () => {
     contentToDisplay = '';
     displayOutput(contentToDisplay);
@@ -112,7 +107,6 @@ clear.addEventListener('click', () => {
 })
 
 const decimal = document.querySelector('.decimal');
-
 decimal.addEventListener('click', (e) => {
     if (
         !equation.leftOperand.includes('.') &&
