@@ -86,3 +86,11 @@ equal.addEventListener('click', () => {
         clearEquation();
     }
 })
+
+const clear = document.querySelector('#btn-clear');
+
+clear.addEventListener('click', () => {
+    contentToDisplay = '';
+    displayOutput(contentToDisplay);
+    clearEquation();
+})
