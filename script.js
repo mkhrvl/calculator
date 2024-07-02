@@ -30,3 +30,25 @@ function operate(leftOperand, rightOperand, operator) {
             return divide(leftOperand, rightOperand);
     }
 }
+
+const output = document.querySelector('.display__output');
+let contentToDisplay = '';
+
+function displayOutput(content) {
+    output.textContent = content;
+}
+
+const operands = document.querySelectorAll('.operand');
+
+operands.forEach((operand) => operand.addEventListener('click', (e) => {
+    contentToDisplay += e.target.value;
+    displayOutput(contentToDisplay);
+}))
+
+const operators = document.querySelectorAll('.operator');
+
+operators.forEach((operator) => operator.addEventListener('click', (e) => {
+    contentToDisplay += ` ${e.target.value} `;
+    displayOutput(contentToDisplay);
+}))
+
