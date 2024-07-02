@@ -16,16 +16,16 @@ function divide(a, b) {
 
 const equation = {};
 
-function operate(leftOperand, rightOperand, operator) {
-    switch (operator) {
+function operate(equation) {
+    switch (equation.operator) {
         case '+':
-            return add(leftOperand, rightOperand);
+            return add(equation.leftOperand, equation.rightOperand);
         case '−':
-            return subtract(leftOperand, rightOperand);
+            return subtract(equation.leftOperand, equation.rightOperand);
         case '×':
-            return multiply(leftOperand, rightOperand);
+            return multiply(equation.leftOperand, equation.rightOperand);
         case '÷':
-            return divide(leftOperand, rightOperand);
+            return divide(equation.leftOperand, equation.rightOperand);
     }
 }
 
