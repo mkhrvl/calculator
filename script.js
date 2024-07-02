@@ -11,7 +11,8 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    // Round number up to 7 decimal places
+    return Math.round((a / b) * 10e7) / 10e7;
 }
 
 const equation = {
