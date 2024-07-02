@@ -20,6 +20,12 @@ const equation = {
     operator: '',
 };
 
+function clearEquation() {
+    equation.leftOperand = '';
+    equation.rightOperand = '';
+    equation.operator = '';
+}
+
 function operate(equation) {
     switch (equation.operator) {
         case '+':
@@ -75,5 +81,7 @@ equal.addEventListener('click', () => {
         const result = operate(equation);
         contentToDisplay = result;
         displayOutput(contentToDisplay)
+
+        clearEquation();
     }
 })
