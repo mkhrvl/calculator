@@ -1,5 +1,5 @@
 function add(a, b) {
-    return a + b;
+    return Math.round((a + b) * 10e7) / 10e7;
 }
 
 function subtract(a, b) {
@@ -109,6 +109,30 @@ clear.addEventListener('click', () => {
     contentToDisplay = '';
     displayOutput(contentToDisplay);
     clearEquation();
+})
+
+const decimal = document.querySelector('.decimal');
+
+decimal.addEventListener('click', (e) => {
+    if (
+        !equation.leftOperand.includes('.') &&
+        !equation.operator &&
+        !equation.rightOperand
+    ) {
+        equation.leftOperand += e.target.value;
+        contentToDisplay += e.target.value;
+        displayOutput(contentToDisplay);
+    }
+
+    if (
+        !equation.rightOperand.includes('.') &&
+        equation.operator &&
+        equation.leftOperand
+    ) {
+        equation.rightOperand += e.target.value;
+        contentToDisplay += e.target.value;
+        displayOutput(contentToDisplay);
+    }
 })
 
 const buttons = document.querySelectorAll('button');
