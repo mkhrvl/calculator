@@ -87,8 +87,8 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
     displayOutput(contentToDisplay);
 }))
 
-const equal = document.querySelector('.equal')
-equal.addEventListener('click', () => {
+const btnEqual = document.querySelector('.equal')
+btnEqual.addEventListener('click', () => {
     if (equation.rightOperand) {
         const result = operate(equation);
         contentToDisplay = result;
@@ -99,15 +99,15 @@ equal.addEventListener('click', () => {
     }
 })
 
-const clear = document.querySelector('#btn-clear');
-clear.addEventListener('click', () => {
+const btnClear = document.querySelector('#btn-clear');
+btnClear.addEventListener('click', () => {
     contentToDisplay = '';
     displayOutput(contentToDisplay);
     clearEquation();
 })
 
-const decimal = document.querySelector('.decimal');
-decimal.addEventListener('click', (e) => {
+const btnDecimal = document.querySelector('.decimal');
+btnDecimal.addEventListener('click', (e) => {
     if (
         !equation.leftOperand.includes('.') &&
         !equation.operator &&
@@ -129,6 +129,8 @@ decimal.addEventListener('click', (e) => {
     }
 })
 
+const btnDelete = document.querySelector('#btn-delete');
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => button.addEventListener('click', () => {
     if (equation.leftOperand === ZERO_DIVISION_ERROR_MSG) {
@@ -137,3 +139,4 @@ buttons.forEach((button) => button.addEventListener('click', () => {
     }
     console.table(equation)
 }));
+
