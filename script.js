@@ -10,7 +10,12 @@ function multiply(a, b) {
     return a * b;
 }
 
+const ZERO_DIVISION_ERROR_MSG = 'Boom!'
+
 function divide(a, b) {
+    if (b === 0) {
+        return ZERO_DIVISION_ERROR_MSG;
+    }
     // Round number up to 7 decimal places
     return Math.round((a / b) * 10e7) / 10e7;
 }
@@ -107,4 +112,10 @@ clear.addEventListener('click', () => {
 })
 
 const buttons = document.querySelectorAll('button');
-buttons.forEach((button) => button.addEventListener('click', () => console.table(equation)));
+buttons.forEach((button) => button.addEventListener('click', () => {
+    if (equation.leftOperand === ZERO_DIVISION_ERROR_MSG) {
+        contentToDisplay = '';
+        clearEquation();
+    }
+    console.table(equation)
+}));
