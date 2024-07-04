@@ -99,12 +99,12 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
 const btnEqual = document.querySelector('.equal')
 btnEqual.addEventListener('click', () => {
     if (equation.rightOperand) {
-        const result = operate(equation);
+        const result = operate(equation).toString();
         contentToDisplay = result;
         displayOutput(contentToDisplay)
 
         clearEquation();
-        equation.leftOperand = result.toString();
+        equation.leftOperand = result;
         equationStructure.push('leftOperand');
     }
 })
