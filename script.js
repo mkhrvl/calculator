@@ -118,15 +118,15 @@ function clearCalculator() {
 const btnClear = document.querySelector('#btn-clear');
 btnClear.addEventListener('click', clearCalculator)
 
-function handleDecimalEvent(e) {
+function handleDecimalEvent() {
     if (
         !equation.leftOperand.includes('.') &&
         !equation.operator &&
         !equation.rightOperand
     ) {
-        equation.leftOperand += e.target.value;
+        equation.leftOperand += '.';
         equationStructure.push('leftOperand');
-        contentToDisplay += e.target.value;
+        contentToDisplay += '.';
         displayOutput(contentToDisplay);
     }
 
@@ -135,9 +135,9 @@ function handleDecimalEvent(e) {
         equation.operator &&
         equation.leftOperand
     ) {
-        equation.rightOperand += e.target.value;
+        equation.rightOperand += '.';
         equationStructure.push('rightOperand');
-        contentToDisplay += e.target.value;
+        contentToDisplay += '.';
         displayOutput(contentToDisplay);
     }
 }
