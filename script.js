@@ -52,18 +52,17 @@ function operate(equation) {
     }
 }
 
-let contentToDisplay = '';
-
 const output = document.querySelector('.display__output');
-function displayOutput(content) {
-    output.textContent = content;
+
+function updateDisplay() {
+    const leftOperand = equation.leftOperand;
+    const operator = equation.operator;
+    const rightOperand = equation.rightOperand;
+    output.textContent = `${leftOperand} ${operator} ${rightOperand}`;
 }
 
 const operands = document.querySelectorAll('.operand');
 operands.forEach((operand) => operand.addEventListener('click', (e) => {
-    contentToDisplay += e.target.value;
-    displayOutput(contentToDisplay);
-
     if (equation.leftOperand && equation.operator) {
         equation.rightOperand += e.target.value;
         equationStructure.push('rightOperand');
@@ -71,48 +70,42 @@ operands.forEach((operand) => operand.addEventListener('click', (e) => {
         equation.leftOperand += e.target.value;
         equationStructure.push('leftOperand');
     }
+    updateDisplay();
 }))
 
 const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => operator.addEventListener('click', (e) => {
     if (equation.leftOperand) {
-        contentToDisplay += ` ${e.target.value} `;
         equation.operator = e.target.value;
         equationStructure.push('operator');
     }
 
     if (e.target.value === '−'&& !equation.leftOperand) {
-        contentToDisplay += '-';
         equation.leftOperand += '-'
         equationStructure.push('leftOperand');
     }
 
     if (equation.operator) {
-        const contentParts = contentToDisplay.split(' ');
-        contentToDisplay = `${contentParts[0]} ${e.target.value} `
         equation.operator = e.target.value;
     }
 
-    displayOutput(contentToDisplay);
+    updateDisplay();
 }))
 
 const btnEqual = document.querySelector('.equal')
 btnEqual.addEventListener('click', () => {
     if (equation.rightOperand) {
         const result = operate(equation).toString();
-        contentToDisplay = result;
-        displayOutput(contentToDisplay)
-
         clearEquation();
         equation.leftOperand = result;
         equationStructure.push('leftOperand');
+        updateDisplay();
     }
 })
 
 function clearCalculator() {
-    contentToDisplay = '';
-    displayOutput(contentToDisplay);
     clearEquation();
+    updateDisplay();
 }
 
 const btnClear = document.querySelector('#btn-clear');
@@ -126,8 +119,6 @@ function handleDecimalEvent() {
     ) {
         equation.leftOperand += '.';
         equationStructure.push('leftOperand');
-        contentToDisplay += '.';
-        displayOutput(contentToDisplay);
     }
 
     if (
@@ -137,9 +128,9 @@ function handleDecimalEvent() {
     ) {
         equation.rightOperand += '.';
         equationStructure.push('rightOperand');
-        contentToDisplay += '.';
-        displayOutput(contentToDisplay);
     }
+
+    updateDisplay();
 }
 
 const btnDecimal = document.querySelector('.decimal');
@@ -162,18 +153,9 @@ function deleteLastCharacterFromEquation() {
     }
 }
 
-function deleteLastCharacterFromDisplay() {
-    if (equationStructure[equationStructure.length - 1] === 'operator') {
-        contentToDisplay = contentToDisplay.substring(0, contentToDisplay.length - 3);
-    } else {
-        contentToDisplay = contentToDisplay.substring(0, contentToDisplay.length - 1);
-    }
-    displayOutput(contentToDisplay);
-}
-
 function handleDeleteEvent() {
-    deleteLastCharacterFromDisplay();
     deleteLastCharacterFromEquation();
+    updateDisplay();
 }
 
 const btnDelete = document.querySelector('#btn-delete');
@@ -182,11 +164,23 @@ btnDelete.addEventListener('click', handleDeleteEvent);
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => button.addEventListener('click', () => {
     if (equation.leftOperand === ZERO_DIVISION_ERROR_MSG) {
-        contentToDisplay = '';
         clearEquation();
     }
     console.table(equation)
     console.log(equationStructure)
-    console.log(contentToDisplay)
 }));
+
+document.addEventListener('keydown', (e) => {
+    const key = e.key;
+
+    if (key === '.') {
+        handleDecimalEvent();
+    } else if (key === 'c' || key === 'Escape') {
+        clearCalculator();
+    } else if (key === 'Backspace') {
+        handleDeleteEvent();
+    }
+
+    console.log(key);
+})
 
