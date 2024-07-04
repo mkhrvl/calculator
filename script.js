@@ -97,13 +97,17 @@ function clearEquation() {
     equation.operator = '';
 }
 
+function handleEqualEvent() {
+    const result = operate(equation).toString();
+    clearEquation();
+    equation.leftOperand = result;
+    updateDisplay();
+}
+
 const btnEqual = document.querySelector('.equal')
 btnEqual.addEventListener('click', () => {
     if (equation.rightOperand) {
-        const result = operate(equation).toString();
-        clearEquation();
-        equation.leftOperand = result;
-        updateDisplay();
+        handleEqualEvent();
     }
 })
 
