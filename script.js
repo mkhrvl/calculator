@@ -103,13 +103,13 @@ btnEqual.addEventListener('click', () => {
     }
 })
 
-function clearCalculator() {
+function handleClearEvent() {
     clearEquation();
     updateDisplay();
 }
 
 const btnClear = document.querySelector('#btn-clear');
-btnClear.addEventListener('click', clearCalculator)
+btnClear.addEventListener('click', handleClearEvent)
 
 function handleDecimalEvent() {
     if (
@@ -176,7 +176,7 @@ document.addEventListener('keydown', (e) => {
     if (key === '.') {
         handleDecimalEvent();
     } else if (key === 'c' || key === 'Escape') {
-        clearCalculator();
+        handleClearEvent();
     } else if (key === 'Backspace') {
         handleDeleteEvent();
     }
