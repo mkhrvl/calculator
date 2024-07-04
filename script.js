@@ -88,6 +88,11 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
         equation.operator = e.target.value;
     }
 
+    if (equation.leftOperand && equation.operator && equation.rightOperand) {
+        handleEqualEvent();
+        equation.operator = e.target.value;
+    }
+
     updateDisplay();
 }))
 
