@@ -25,15 +25,10 @@ const equation = {
     operator: '',
 };
 
-// List of characters in the equation in terms of their role
-// e.g. 22 + 2 = [ leftOperand, leftOperand, operator, rightOperand ]
-let equationStructure = [];
-
 function clearEquation() {
     equation.leftOperand = '';
     equation.rightOperand = '';
     equation.operator = '';
-    equationStructure = [];
 }
 
 function operate(equation) {
@@ -65,10 +60,8 @@ const operands = document.querySelectorAll('.operand');
 operands.forEach((operand) => operand.addEventListener('click', (e) => {
     if (equation.leftOperand && equation.operator) {
         equation.rightOperand += e.target.value;
-        equationStructure.push('rightOperand');
     } else {
         equation.leftOperand += e.target.value;
-        equationStructure.push('leftOperand');
     }
     updateDisplay();
 }))
@@ -77,12 +70,10 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => operator.addEventListener('click', (e) => {
     if (equation.leftOperand) {
         equation.operator = e.target.value;
-        equationStructure.push('operator');
     }
 
     if (e.target.value === '−'&& !equation.leftOperand) {
         equation.leftOperand += '-'
-        equationStructure.push('leftOperand');
     }
 
     if (equation.operator) {
@@ -98,7 +89,6 @@ btnEqual.addEventListener('click', () => {
         const result = operate(equation).toString();
         clearEquation();
         equation.leftOperand = result;
-        equationStructure.push('leftOperand');
         updateDisplay();
     }
 })
@@ -118,7 +108,6 @@ function handleDecimalEvent() {
         !equation.rightOperand
     ) {
         equation.leftOperand += '.';
-        equationStructure.push('leftOperand');
     }
 
     if (
@@ -127,7 +116,6 @@ function handleDecimalEvent() {
         equation.leftOperand
     ) {
         equation.rightOperand += '.';
-        equationStructure.push('rightOperand');
     }
 
     updateDisplay();
@@ -137,19 +125,16 @@ const btnDecimal = document.querySelector('.decimal');
 btnDecimal.addEventListener('click', handleDecimalEvent)
 
 function deleteLastCharacterFromEquation() {
-    const lastCharPointer = equationStructure[equationStructure.length - 1];
-    equationStructure.pop();
+    const leftOperand = equation.leftOperand;
+    const operator = equation.operator;
+    const rightOperand = equation.rightOperand;
 
-    switch(lastCharPointer) {
-        case 'leftOperand':
-            equation.leftOperand = equation.leftOperand.substring(0, equation.leftOperand.length - 1);
-            break;
-        case 'rightOperand':
-            equation.rightOperand = equation.rightOperand.substring(0, equation.rightOperand.length - 1);
-            break;
-        case 'operator':
-            equation.operator = '';
-            break;
+    if (leftOperand && operator && rightOperand) {
+        equation.rightOperand = rightOperand.substring(0, rightOperand.length - 1)
+    } else if (leftOperand && operator && !rightOperand) {
+        equation.operator = '';
+    } else if (leftOperand && !operator && !rightOperand){
+        equation.leftOperand = leftOperand.substring(0, leftOperand.length - 1);
     }
 }
 
@@ -167,7 +152,6 @@ buttons.forEach((button) => button.addEventListener('click', () => {
         clearEquation();
     }
     console.table(equation)
-    console.log(equationStructure)
 }));
 
 document.addEventListener('keydown', (e) => {
