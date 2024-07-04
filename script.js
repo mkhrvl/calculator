@@ -109,12 +109,14 @@ btnEqual.addEventListener('click', () => {
     }
 })
 
-const btnClear = document.querySelector('#btn-clear');
-btnClear.addEventListener('click', () => {
+function clearCalculator() {
     contentToDisplay = '';
     displayOutput(contentToDisplay);
     clearEquation();
-})
+}
+
+const btnClear = document.querySelector('#btn-clear');
+btnClear.addEventListener('click', clearCalculator)
 
 const btnDecimal = document.querySelector('.decimal');
 btnDecimal.addEventListener('click', (e) => {
