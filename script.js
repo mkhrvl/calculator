@@ -63,6 +63,21 @@ operands.forEach((operand) => operand.addEventListener('click', (e) => {
     } else {
         equation.leftOperand += e.target.value;
     }
+
+    // Converts string to number then back to string to remove leading zeros
+    if (
+        !equation.leftOperand.includes('.') &&
+        !equation.rightOperand
+    ) {
+        equation.leftOperand = Number(equation.leftOperand).toString();
+    } else if (
+        !equation.rightOperand.includes('.') &&
+        equation.operator
+        && equation.leftOperand
+    ) {
+        equation.rightOperand = Number(equation.rightOperand).toString();
+    }
+
     updateDisplay();
 }))
 
