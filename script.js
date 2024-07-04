@@ -51,22 +51,25 @@ function updateDisplay() {
 
 const operands = document.querySelectorAll('.operand');
 operands.forEach((operand) => operand.addEventListener('click', (e) => {
-    if (equation.leftOperand && equation.operator) {
+    const leftOperand = equation.leftOperand;
+    const operator = equation.operator;
+    const rightOperand = equation.rightOperand;
+
+    if (leftOperand && operator) {
         equation.rightOperand += e.target.value;
     } else {
         equation.leftOperand += e.target.value;
     }
 
     // Converts string to number then back to string to remove leading zeros
-    if (
-        !equation.leftOperand.includes('.') &&
-        !equation.rightOperand
+    if (!leftOperand.includes('.') &&
+        !rightOperand
     ) {
         equation.leftOperand = Number(equation.leftOperand).toString();
     } else if (
-        !equation.rightOperand.includes('.') &&
-        equation.operator
-        && equation.leftOperand
+        !rightOperand.includes('.') &&
+        operator &&
+        leftOperand
     ) {
         equation.rightOperand = Number(equation.rightOperand).toString();
     }
