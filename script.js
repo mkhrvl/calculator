@@ -162,16 +162,22 @@ function deleteLastCharacterFromEquation() {
     }
 }
 
-const btnDelete = document.querySelector('#btn-delete');
-btnDelete.addEventListener('click', () => {
+function deleteLastCharacterFromDisplay() {
     if (equationStructure[equationStructure.length - 1] === 'operator') {
-        contentToDisplay = contentToDisplay.substring(0, contentToDisplay.length - 3)
+        contentToDisplay = contentToDisplay.substring(0, contentToDisplay.length - 3);
     } else {
         contentToDisplay = contentToDisplay.substring(0, contentToDisplay.length - 1);
     }
     displayOutput(contentToDisplay);
+}
+
+function handleDeleteEvent() {
+    deleteLastCharacterFromDisplay();
     deleteLastCharacterFromEquation();
-})
+}
+
+const btnDelete = document.querySelector('#btn-delete');
+btnDelete.addEventListener('click', handleDeleteEvent);
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => button.addEventListener('click', () => {
