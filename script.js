@@ -118,8 +118,7 @@ function clearCalculator() {
 const btnClear = document.querySelector('#btn-clear');
 btnClear.addEventListener('click', clearCalculator)
 
-const btnDecimal = document.querySelector('.decimal');
-btnDecimal.addEventListener('click', (e) => {
+function handleDecimalEvent(e) {
     if (
         !equation.leftOperand.includes('.') &&
         !equation.operator &&
@@ -141,7 +140,10 @@ btnDecimal.addEventListener('click', (e) => {
         contentToDisplay += e.target.value;
         displayOutput(contentToDisplay);
     }
-})
+}
+
+const btnDecimal = document.querySelector('.decimal');
+btnDecimal.addEventListener('click', handleDecimalEvent)
 
 function deleteLastCharacterFromEquation() {
     const lastCharPointer = equationStructure[equationStructure.length - 1];
