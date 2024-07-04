@@ -1,6 +1,5 @@
 const CHARACTER_LIMIT = 11;
 function roundResult(num) {
-    console.log(num.toString().length)
     if (num.toString().length > CHARACTER_LIMIT) {
         return num.toPrecision(6);
     } else {
@@ -25,7 +24,6 @@ function divide(a, b) {
     if (b === 0) {
         return ZERO_DIVISION_ERROR_MSG;
     }
-    // Round number up to 7 decimal places
     return roundResult(a / b);
 }
 
@@ -220,7 +218,6 @@ buttons.forEach((button) => button.addEventListener('click', () => {
     if (equation.leftOperand === ZERO_DIVISION_ERROR_MSG) {
         clearEquation();
     }
-    console.table(equation)
 }));
 
 document.addEventListener('keydown', (e) => {
@@ -317,6 +314,4 @@ document.addEventListener('keydown', (e) => {
             handleEqualEvent();
             break;
     }
-
-    console.table(equation)
 })
