@@ -25,12 +25,6 @@ const equation = {
     operator: '',
 };
 
-function clearEquation() {
-    equation.leftOperand = '';
-    equation.rightOperand = '';
-    equation.operator = '';
-}
-
 function operate(equation) {
     const leftOperand = Number(equation.leftOperand);
     const rightOperand = Number(equation.rightOperand)
@@ -48,7 +42,6 @@ function operate(equation) {
 }
 
 const output = document.querySelector('.display__output');
-
 function updateDisplay() {
     const leftOperand = equation.leftOperand;
     const operator = equation.operator;
@@ -97,6 +90,12 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
 
     updateDisplay();
 }))
+
+function clearEquation() {
+    equation.leftOperand = '';
+    equation.rightOperand = '';
+    equation.operator = '';
+}
 
 const btnEqual = document.querySelector('.equal')
 btnEqual.addEventListener('click', () => {
