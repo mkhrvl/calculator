@@ -215,21 +215,98 @@ buttons.forEach((button) => button.addEventListener('click', () => {
 
 document.addEventListener('keydown', (e) => {
     const key = e.key;
+    e.preventDefault();
+
+    if (!isNaN(key)) {
+        const leftOperand = equation.leftOperand;
+        const operator = equation.operator;
+        const rightOperand = equation.rightOperand;
+
+        if (leftOperand && operator) {
+            equation.rightOperand += key;
+        } else {
+            equation.leftOperand += key;
+        }
+
+        // Converts string to number then back to string to remove leading zeros
+        if (!leftOperand.includes('.') &&
+            !rightOperand
+        ) {
+            equation.leftOperand = Number(equation.leftOperand).toString();
+        } else if (
+            !rightOperand.includes('.') &&
+            operator &&
+            leftOperand
+        ) {
+            equation.rightOperand = Number(equation.rightOperand).toString();
+        }
+
+        updateDisplay();
+    }
+
+    if (
+        key === '+' ||
+        key === '-' ||
+        key === '*' ||
+        key === '/'
+    ) {
+        const leftOperand = equation.leftOperand;
+        const operator = equation.operator;
+        const rightOperand = equation.rightOperand;
+        let operatorSymbol = key;
+
+        switch(key) {
+            case '*':
+                operatorSymbol = '×';
+                break;
+            case '/':
+                operatorSymbol = '÷';
+                break;
+        }
+
+        if (leftOperand) {
+            equation.operator = operatorSymbol;
+        }
+
+        if (key === '-' && !leftOperand) {
+            equation.leftOperand += '-'
+        }
+
+        if (leftOperand[leftOperand.length - 1] === '.') {
+            equation.leftOperand = leftOperand.substring(0, leftOperand.length - 1);
+        }
+
+        if (operator) {
+            equation.operator = operatorSymbol;
+        }
+
+        if (leftOperand && operator && rightOperand) {
+            handleEqualEvent();
+            equation.operator = operatorSymbol;
+        }
+
+        updateDisplay();
+    }
 
     switch(key) {
-        case '.':
-            handleDecimalEvent();
-            break;
-        case 'c':
         case 'Escape':
+        case 'c':
             handleClearEvent();
             break;
         case 'Backspace':
             handleDeleteEvent();
             break;
-
+        case '%':
+            handlePercentEvent();
+            break;
+        case '.':
+            handleDecimalEvent();
+            break;
+        case 'Enter':
+        case '=':
+            handleEqualEvent();
+            break;
     }
 
-    console.log(key);
+    console.table(equation)
 })
-
