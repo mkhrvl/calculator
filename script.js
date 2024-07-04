@@ -215,12 +215,18 @@ buttons.forEach((button) => button.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     const key = e.key;
 
-    if (key === '.') {
-        handleDecimalEvent();
-    } else if (key === 'c' || key === 'Escape') {
-        handleClearEvent();
-    } else if (key === 'Backspace') {
-        handleDeleteEvent();
+    switch(key) {
+        case '.':
+            handleDecimalEvent();
+            break;
+        case 'c':
+        case 'Escape':
+            handleClearEvent();
+            break;
+        case 'Backspace':
+            handleDeleteEvent();
+            break;
+
     }
 
     console.log(key);
