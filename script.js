@@ -25,10 +25,15 @@ const equation = {
     operator: '',
 };
 
+// List of characters in the equation in terms of their role
+// e.g. 22 + 2 = [ leftOperand, leftOperand, operator, rightOperand ]
+let equationStructure = [];
+
 function clearEquation() {
     equation.leftOperand = '';
     equation.rightOperand = '';
     equation.operator = '';
+    equationStructure = [];
 }
 
 function operate(equation) {
@@ -61,8 +66,10 @@ operands.forEach((operand) => operand.addEventListener('click', (e) => {
 
     if (equation.leftOperand && equation.operator) {
         equation.rightOperand += e.target.value;
+        equationStructure.push('rightOperand');
     } else {
         equation.leftOperand += e.target.value;
+        equationStructure.push('leftOperand');
     }
 }))
 
@@ -71,11 +78,13 @@ operators.forEach((operator) => operator.addEventListener('click', (e) => {
     if (equation.leftOperand) {
         contentToDisplay += ` ${e.target.value} `;
         equation.operator = e.target.value;
+        equationStructure.push('operator');
     }
 
     if (e.target.value === '−'&& !equation.leftOperand) {
         contentToDisplay += '-';
         equation.leftOperand += '-'
+        equationStructure.push('leftOperand');
     }
 
     if (equation.operator) {
@@ -96,6 +105,7 @@ btnEqual.addEventListener('click', () => {
 
         clearEquation();
         equation.leftOperand = result.toString();
+        equationStructure.push('leftOperand');
     }
 })
 
@@ -114,6 +124,7 @@ btnDecimal.addEventListener('click', (e) => {
         !equation.rightOperand
     ) {
         equation.leftOperand += e.target.value;
+        equationStructure.push('leftOperand');
         contentToDisplay += e.target.value;
         displayOutput(contentToDisplay);
     }
@@ -124,12 +135,39 @@ btnDecimal.addEventListener('click', (e) => {
         equation.leftOperand
     ) {
         equation.rightOperand += e.target.value;
+        equationStructure.push('rightOperand');
         contentToDisplay += e.target.value;
         displayOutput(contentToDisplay);
     }
 })
 
+function deleteLastCharacterFromEquation() {
+    const lastCharPointer = equationStructure[equationStructure.length - 1];
+    equationStructure.pop();
+
+    switch(lastCharPointer) {
+        case 'leftOperand':
+            equation.leftOperand = equation.leftOperand.substring(0, equation.leftOperand.length - 1);
+            break;
+        case 'rightOperand':
+            equation.rightOperand = equation.rightOperand.substring(0, equation.rightOperand.length - 1);
+            break;
+        case 'operator':
+            equation.operator = '';
+            break;
+    }
+}
+
 const btnDelete = document.querySelector('#btn-delete');
+btnDelete.addEventListener('click', () => {
+    if (equationStructure[equationStructure.length - 1] === 'operator') {
+        contentToDisplay = contentToDisplay.substring(0, contentToDisplay.length - 3)
+    } else {
+        contentToDisplay = contentToDisplay.substring(0, contentToDisplay.length - 1);
+    }
+    displayOutput(contentToDisplay);
+    deleteLastCharacterFromEquation();
+})
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => button.addEventListener('click', () => {
@@ -138,5 +176,7 @@ buttons.forEach((button) => button.addEventListener('click', () => {
         clearEquation();
     }
     console.table(equation)
+    console.log(equationStructure)
+    console.log(contentToDisplay)
 }));
 
