@@ -76,19 +76,27 @@ operands.forEach((operand) => operand.addEventListener('click', (e) => {
 
 const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => operator.addEventListener('click', (e) => {
-    if (equation.leftOperand) {
+    const leftOperand = equation.leftOperand;
+    const operator = equation.operator;
+    const rightOperand = equation.rightOperand;
+
+    if (leftOperand) {
         equation.operator = e.target.value;
     }
 
-    if (e.target.value === '−'&& !equation.leftOperand) {
+    if (e.target.value === '−' && !leftOperand) {
         equation.leftOperand += '-'
     }
 
-    if (equation.operator) {
+    if (leftOperand[leftOperand.length - 1] === '.') {
+        equation.leftOperand = leftOperand.substring(0, leftOperand.length - 1);
+    }
+
+    if (operator) {
         equation.operator = e.target.value;
     }
 
-    if (equation.leftOperand && equation.operator && equation.rightOperand) {
+    if (leftOperand && operator && rightOperand) {
         handleEqualEvent();
         equation.operator = e.target.value;
     }
@@ -125,6 +133,16 @@ const btnClear = document.querySelector('#btn-clear');
 btnClear.addEventListener('click', handleClearEvent)
 
 function handleDecimalEvent() {
+    const leftOperand = equation.leftOperand;
+    const operator = equation.operator;
+    const rightOperand = equation.rightOperand;
+
+    if (!leftOperand && !operator && !rightOperand) {
+        equation.leftOperand += '0';
+    } else if (leftOperand && operator && !rightOperand) {
+        equation.rightOperand += '0';
+    }
+
     if (
         !equation.leftOperand.includes('.') &&
         !equation.operator &&
