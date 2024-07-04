@@ -160,6 +160,23 @@ function handleDeleteEvent() {
 const btnDelete = document.querySelector('#btn-delete');
 btnDelete.addEventListener('click', handleDeleteEvent);
 
+function handlePercentEvent() {
+    const leftOperand = equation.leftOperand;
+    const operator = equation.operator;
+    const rightOperand = equation.rightOperand;
+
+    if (!operator && !rightOperand) {
+        equation.leftOperand = (leftOperand / 100).toString();
+    } else if (leftOperand && operator) {
+        equation.rightOperand = (rightOperand / 100).toString();
+    }
+
+    updateDisplay();
+}
+
+const btnPercent = document.querySelector('#btn-percent');
+btnPercent.addEventListener('click', handlePercentEvent);
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => button.addEventListener('click', () => {
     if (equation.leftOperand === ZERO_DIVISION_ERROR_MSG) {
