@@ -111,18 +111,16 @@ function clearEquation() {
 }
 
 function handleEqualEvent() {
-    const result = operate(equation).toString();
-    clearEquation();
-    equation.leftOperand = result;
-    updateDisplay();
+    if (equation.rightOperand) {
+        const result = operate(equation).toString();
+        clearEquation();
+        equation.leftOperand = result;
+        updateDisplay();
+    }
 }
 
 const btnEqual = document.querySelector('.equal')
-btnEqual.addEventListener('click', () => {
-    if (equation.rightOperand) {
-        handleEqualEvent();
-    }
-})
+btnEqual.addEventListener('click', handleEqualEvent)
 
 function handleClearEvent() {
     clearEquation();
